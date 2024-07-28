@@ -61,14 +61,18 @@ export function calcTileType(index, boardSize) {
   }
 }
 
-// export function calcHealthLevel(health) {
-//   if (health < 15) {
-//     return 'critical';
-//   }
+export function calcHealthLevel(health) {
+  if (health < 15) {
+    return 'critical';
+  }
 
-//   if (health < 50) {
-//     return 'normal';
-//   }
+  if (health < 50) {
+    return 'normal';
+  }
 
-//   return 'high';
-// }
+  return 'high';
+}
+
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
