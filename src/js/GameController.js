@@ -1,12 +1,12 @@
-import drawUi from './GamePlay'
-import themes from './themes'
+
 import Bowman from './characters/Bowman';
-import Swordsman from './characters/Swordsman';
+import Daemon from './characters/Daemon';
 import Magician from './characters/Magician';
+import PositionedCharacter from './PositionedCharacter';
+import Swordsman from './characters/Swordsman';
+import themes from './themes';
 import Undead from './characters/Undead';
 import Vampire from './characters/Vampire';
-import Daemon from './characters/Daemon';
-import PositionedCharacter from './PositionedCharacter';
 import { generateTeam } from './generators';
 import { getRandomInt } from './utils';
 
@@ -17,35 +17,37 @@ export default class GameController {
   }
 
   init() {
-    // TODO: add event listeners to gamePlay events
-    // TODO: load saved stated from stateService
+    // TODO: add event listeners to gamePlay events (добавить
+    //       прослушиватели событий в события gamePlay)
     this.gamePlay.drawUi(themes.prairie);
 
     const characterCount = getRandomInt(this.gamePlay.boardSize * 2) + 1;
     const characterMaxLevel = getRandomInt(4) + 1;
 
-    const heroTeam = generateTeam([Bowman, Magician, Swordsman], characterMaxLevel, characterCount);
-    const evilTeam = generateTeam([Vampire, Undead, Daemon], characterMaxLevel, characterCount);
+    const ourTeam = generateTeam([Bowman, Magician, Swordsman], characterMaxLevel, characterCount);
+    const rivalTeam = generateTeam([Daemon, Undead, Vampire], characterMaxLevel, characterCount);
 
     const occupiedPositions = [];
     const positions = [];
 
-    heroTeam.characters.forEach((character) => {
+    ourTeam.characters.forEach((character) => {
       let position;
 
       do {
-        position = getRandomInt(this.gamePlay.boardSize) * this.gamePlay.boardSize + getRandomInt(2);
+        position = getRandomInt(this.gamePlay.boardSize) * this.gamePlay.boardSize
+          + getRandomInt(2);
       } while (occupiedPositions.includes(position));
 
       occupiedPositions.push(position);
       positions.push(new PositionedCharacter(character, position));
     });
 
-    evilTeam.characters.forEach((character) => {
+    rivalTeam.characters.forEach((character) => {
       let position;
 
       do {
-        position = getRandomInt(this.gamePlay.boardSize) * this.gamePlay.boardSize + getRandomInt(2) + 6;
+        position = getRandomInt(this.gamePlay.boardSize) * this.gamePlay.boardSize
+          + getRandomInt(2) + 6;
       } while (occupiedPositions.includes(position));
 
       occupiedPositions.push(position);
@@ -53,6 +55,8 @@ export default class GameController {
     });
 
     this.gamePlay.redrawPositions(positions);
+
+    // TODO: load saved stated from stateService (загрузка сохранена, указанная в StateService)
   }
 
   onCellClick(index) {

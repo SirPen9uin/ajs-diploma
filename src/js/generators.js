@@ -1,5 +1,7 @@
+
 import Team from './Team';
 import { getRandomInt } from './utils';
+
 /**
  * Формирует экземпляр персонажа из массива allowedTypes со
  * случайным уровнем от 1 до maxLevel
@@ -24,9 +26,11 @@ export function* characterGenerator(allowedTypes, maxLevel) {
  * Формирует массив персонажей на основе characterGenerator
  * @param allowedTypes массив классов
  * @param maxLevel максимальный возможный уровень персонажа
- * @param characterCount количество персонажей, которое нужно сформировать
- * @returns экземпляр Team, хранящий экземпляры персонажей. Количество персонажей в команде - characterCount
- * */
+ * @param characterCount количество персонажей, которое нужно
+ * сформировать
+ * @returns экземпляр Team, хранящий экземпляры персонажей.
+ * Количество персонажей в команде - characterCount
+ */
 export function generateTeam(allowedTypes, maxLevel, characterCount) {
   // TODO: write logic here
   const characters = [];
