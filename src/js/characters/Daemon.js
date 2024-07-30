@@ -6,5 +6,10 @@ export default class Daemon extends Character {
 		super(level, characterTypes.daemon);
 		this.attack = 10;
 		this.defence = 10;
+
+		Object.defineProperties(this, {
+			attackRange: { value: 4, writable: false, configurable: false },
+			drivingRange: { value: 1, writable: false, configurable: false },
+		})
 	}
 }

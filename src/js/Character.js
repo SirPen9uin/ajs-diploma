@@ -25,4 +25,8 @@ export default class Character {
       throw new Error('Объект класса Character не может быть создан');
     }
   }
+  
+  get briefInformation() {
+    return `🎖${this.level} ⚔${this.attack} 🛡${this.defence} ❤${this.health}`
+  }
 }

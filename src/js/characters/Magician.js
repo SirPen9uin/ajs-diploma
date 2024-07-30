@@ -6,5 +6,10 @@ export default class Magician extends Character {
 		super(level, characterTypes.magician);
 		this.attack = 10;
 		this.defence = 40;
+
+		Object.defineProperties(this, {
+			attackRange: { value: 4, writable: false, configurable: false },
+			drivingRange: { value: 1, writable: false, configurable: false },
+		})
 	}
 }
