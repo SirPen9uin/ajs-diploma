@@ -9,7 +9,7 @@ export default class Undead extends Character {
 
 		Object.defineProperties(this, {
 			attackRange: { value: 1, writable: false, configurable: false },
-			drivingRange: { value: 4, writable: false, configurable: false },
+			moveRange: { value: 4, writable: false, configurable: false },
 		})
 	}
 }

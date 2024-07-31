@@ -21,7 +21,7 @@ describe('class Vampire', () => {
   
 	  const result = character.briefInformation;
   
-	  expect(result).toBe(`🎖${character.level} ⚔${character.attack} 🛡${character.defence} ❤${character.health}`);
+	  expect(result).toBe(`\u{1F396}${character.level} \u{2694}${character.attack} \u{1F6E1}${character.defence} \u{2764}${character.health}`);
 	});
 
 	test('testing getting attack range', () => {
@@ -31,9 +31,9 @@ describe('class Vampire', () => {
 		expect(result).toBe(2);
 	  })
 	
-	  test('testing getting driving range', () => {
+	  test('testing getting move range', () => {
 		const character = new Vampire(1);
-		const result = character.drivingRange;
+		const result = character.moveRange;
 	
 		expect(result).toBe(2);
 	  })

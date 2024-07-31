@@ -14,38 +14,47 @@ export default class PositionedCharacter {
     this.position = position;
   }
 
-  canCharacterAttack(position, boardSize) {
-    const positionColunm = this.position % boardSize;
-    const positionRow = Math.floor(position / boardSize);
-    const thisPositionColumn = this.position % boardSize;
-    const thisPositionRow = Math.floor(this.position / boardSize);
+  /**
+   * Определяет, может ли персонаж атаковать
+   *
+   * @param position - проверяемая позиция
+   * @param boardSize - размер поля
+   * @returns {boolean}
+   */
+  canAttack(position, boardSize) {
+    const columnDifference = Math.abs((this.position % boardSize) - (position % boardSize));
+    const rowDifference = Math.abs(
+      Math.floor(this.position / boardSize) - Math.floor(position / boardSize),
+    );
 
-    return Math.abs(positionRow - thisPositionRow) <= this.character.attackRange && Math.abs(positionColunm - thisPositionColumn) <= this.character.attackRange;
+    return columnDifference <= this.character.attackRange
+      && rowDifference <= this.character.attackRange;
   }
 
-  canCharacterDriving(position, boardSize) {
-    const positionColunm = this.position % boardSize;
-    const positionRow = Math.floor(position / boardSize);
-    const thisPositionColumn = this.position % boardSize;
-    const thisPositionRow = Math.floor(this.position / boardSize);
+  /**
+   * Определяет, может ли персонаж переместиться
+   *
+   * @param position - проверяемая позиция
+   * @param boardSize - размер поля
+   * @returns {boolean}
+   */
+  canMove(position, boardSize) {
+    const columnDifference = Math.abs((this.position % boardSize) - (position % boardSize));
+    const rowDifference = Math.abs(
+      Math.floor(this.position / boardSize) - Math.floor(position / boardSize),
+    );
 
-  switch (true) {
-    
-    case positionColumn === thisPositionColumn:
-      return Math.abs(positionRow - thisPositionRow) <= this.character.drivingRange;
-    
-    case positionRow === thisPositionRow:
-      return Math.abs(positionColumn - thisPositionColumn) <= this.character.drivingRange; 
-
-    case positionColunm + positionRow === thisPositionColumn + thisPositionRow:
-    case positionColunm - positionRow === thisPositionColumn - thisPositionRow:
-      return Math.abs(positionRow - thisPositionRow) <= this.character.drivingRange && Math.abs(positionColumn - thisPositionColumn) <= this.character.drivingRange;
-
-    default:
-      return false;
-    }
+    return columnDifference <= this.character.moveRange
+      && rowDifference <= this.character.moveRange
+      && (columnDifference === 0 || rowDifference === 0 || columnDifference === rowDifference);
   }
 
+  /**
+   * Определяет принадлежность персонажа классу
+   *
+   * @param Class - один класс или массив классов
+   * @returns {boolean}
+   */
   characterInstanceOf(Class) {
     if (Array.isArray(Class)) {
       return Boolean(Class.filter((c) => this.character instanceof c).length);

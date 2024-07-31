@@ -9,7 +9,7 @@ export default class Magician extends Character {
 
 		Object.defineProperties(this, {
 			attackRange: { value: 4, writable: false, configurable: false },
-			drivingRange: { value: 1, writable: false, configurable: false },
+			moveRange: { value: 1, writable: false, configurable: false },
 		})
 	}
 }

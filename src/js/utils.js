@@ -24,36 +24,34 @@
  * */
 export function calcTileType(index, boardSize) {
   // TODO: ваш код будет тут
-  const indexes = {
-    'bottom-left': boardSize * (boardSize - 1),
-    'bottom-right': (boardSize * boardSize) - 1,
-    'top-left': 0,
-    'top-right': boardSize - 1,
-  };
+  const topRow = index < boardSize;
+  const bottomRow = index >= boardSize * (boardSize - 1);
+  const leftColumn = index % boardSize === 0;
+  const rightColumn = index % boardSize === boardSize - 1;
 
   switch (true) {
-  case index === indexes['top-left']:
+  case topRow && leftColumn:
     return 'top-left';
 
-  case index === indexes['top-right']:
+  case topRow && rightColumn:
     return 'top-right';
 
-  case index > indexes['top-left'] && index < indexes['top-right']:
-    return 'top';
-
-  case index === indexes['bottom-left']:
+  case bottomRow && leftColumn:
     return 'bottom-left';
 
-  case index === indexes['bottom-right']:
+  case bottomRow && rightColumn:
     return 'bottom-right';
 
-  case index > indexes['bottom-left'] && index < indexes['bottom-right']:
+  case topRow && !(leftColumn || rightColumn):
+    return 'top';
+
+  case bottomRow && !(leftColumn || rightColumn):
     return 'bottom';
 
-  case index % boardSize === indexes['top-right']:
+  case !(topRow || bottomRow) && rightColumn:
     return 'right';
 
-  case index % boardSize === indexes['top-left']:
+  case !(topRow || bottomRow) && leftColumn:
     return 'left';
 
   default:
@@ -73,6 +71,6 @@ export function calcHealthLevel(health) {
   return 'high';
 }
 
-export function getRandomInt(max) {
+export function randomInt(max) {
   return Math.floor(Math.random() * max);
 }

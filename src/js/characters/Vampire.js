@@ -9,7 +9,7 @@ export default class Vampire extends Character {
 
 		Object.defineProperties(this, {
 			attackRange: { value: 2, writable: false, configurable: false },
-			drivingRange: { value: 2, writable: false, configurable: false },
+			moveRange: { value: 2, writable: false, configurable: false },
 		})
 	}
 }
