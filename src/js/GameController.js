@@ -39,6 +39,8 @@ export default class GameController {
     this.gamePlay.addCellClickListener(this.onCellClick.bind(this));
     this.gamePlay.addCellEnterListener(this.onCellEnter.bind(this));
     this.gamePlay.addCellLeaveListener(this.onCellLeave.bind(this));
+
+    this.gamePlay.addNewGameListener(() => this.init());
   }
 
   /**
@@ -84,6 +86,18 @@ export default class GameController {
         }, timeout);
       }, timeout);
     }
+  }
+
+  gameOver() {
+    this.gameState.isOver = true;
+    this.gamePlay.redrawPositions(this.positionedCharacters);
+    this.gamePlay.setCursor(cursors.auto);
+
+    const isWin = this.positionedEnemyTeam.length === 0;
+
+    setTimeout(() => {
+      GamePlay.showMessage(isWin ? 'Победа!' : 'Поражение...');
+    }, 100);
   }
 
   /**
@@ -147,6 +161,14 @@ export default class GameController {
           this.positionedCharacters = [...this.positionedPlayerTeam, ...this.positionedEnemyTeam];
 
           if (this.positionedPlayerTeam.length === 0) {
+
+            this.gamePlay.deselectCell(index);
+            this.gamePlay.deselectCell(this.selectedCharacter.position);
+            this.gamePlay.setCursor(cursors.auto);
+
+            this.selectedCharacter = undefined;
+
+            this.gameOver();
             return;
           }
         }
@@ -189,7 +211,11 @@ export default class GameController {
    * Инициализация
    */
   init() {
-    this.gameState = { isPlayer: true, level: 1, theme: themes.prairie };
+    this.gameState = { 
+      isOver: false,
+      isPlayer: true, 
+      level: 1, 
+      theme: themes.prairie };
 
     // TODO: add event listeners to gamePlay events (добавить
     //       прослушиватели событий в события gamePlay)
@@ -254,7 +280,7 @@ export default class GameController {
     this.gameState.isPlayer = true;
     this.gameState.level += 1;
 
-    switch (this.gameState.level % 4) {
+    switch (this.gameState.level) {
     case 1: {
       this.gameState.theme = themes.prairie;
       break;
@@ -267,9 +293,16 @@ export default class GameController {
       this.gameState.theme = themes.arctic;
       break;
     }
-    default: {
+    case 4: {
       this.gameState.theme = themes.mountain;
       break;
+    }
+    case 5: {
+      this.gameOver();
+      break;
+    }
+    default: {
+      throw new Error('Неизвестный уровень');
     }
     }
 
@@ -306,6 +339,10 @@ export default class GameController {
    * @param index номер клетки
    */
   onCellClick(index) {
+    if(this.gameState.isOver) {
+      return;
+    }
+
     if (this.gameState.isPlayer) {
       const clickedCharacterElement = this.gamePlay.cells[index].querySelector('.character');
       const clickedCharacter = this.positionedCharacters.find(
@@ -342,6 +379,9 @@ export default class GameController {
    * @param index номер клетки
    */
   onCellEnter(index) {
+    if(this.gameState.isOver){
+      return;
+    }
     const enteredCharacterElement = this.gamePlay.cells[index].querySelector('.character');
     const enteredCharacter = this.positionedCharacters.find(
       (element) => element.position === index,

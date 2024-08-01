@@ -71,6 +71,6 @@ export function calcHealthLevel(health) {
   return 'high';
 }
 
-export function randomInt(max) {
-  return Math.floor(Math.random() * max);
+export function randomInt(range) {
+  return Math.floor(Math.random() * range);
 }
