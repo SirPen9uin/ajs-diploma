@@ -22,10 +22,13 @@ export default class PositionedCharacter {
    * @returns {boolean}
    */
   canAttack(position, boardSize) {
-    const columnDifference = Math.abs((this.position % boardSize) - (position % boardSize));
-    const rowDifference = Math.abs(
-      Math.floor(this.position / boardSize) - Math.floor(position / boardSize),
-    );
+    const thisPositionColumn = this.position % boardSize;
+    const thisPositionRaw = Math.floor(this.position / boardSize);
+    const positionColumn = position % boardSize;
+    const positionRow = Math.floor(position / boardSize);
+
+    const columnDifference = Math.abs(thisPositionColumn - positionColumn);
+    const rowDifference = Math.abs(thisPositionRaw - positionRow);
 
     return columnDifference <= this.character.attackRange
       && rowDifference <= this.character.attackRange;
@@ -39,10 +42,13 @@ export default class PositionedCharacter {
    * @returns {boolean}
    */
   canMove(position, boardSize) {
-    const columnDifference = Math.abs((this.position % boardSize) - (position % boardSize));
-    const rowDifference = Math.abs(
-      Math.floor(this.position / boardSize) - Math.floor(position / boardSize),
-    );
+    const thisPositionColumn = this.position % boardSize;
+    const thisPositionRaw = Math.floor(this.position / boardSize);
+    const positionColumn = position % boardSize;
+    const positionRow = Math.floor(position / boardSize);
+
+    const columnDifference = Math.abs(thisPositionColumn - positionColumn);
+    const rowDifference = Math.abs(thisPositionRaw - positionRow);
 
     return columnDifference <= this.character.moveRange
       && rowDifference <= this.character.moveRange

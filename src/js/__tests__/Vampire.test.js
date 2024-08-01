@@ -31,10 +31,22 @@ describe('class Vampire', () => {
 		expect(result).toBe(2);
 	  })
 	
-	  test('testing getting move range', () => {
+	test('testing getting move range', () => {
 		const character = new Vampire(1);
 		const result = character.moveRange;
 	
 		expect(result).toBe(2);
 	  })
+
+	test('Test creation with incorrect level', () => {
+		const result = new Vampire(3);
+	  
+		expect(result).toEqual({
+		  attack: 57,
+		  defence: 57,
+		  health: 100,
+		  level: 3,
+		  type: 'vampire',
+		})
+	  });  
   });

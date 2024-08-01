@@ -37,4 +37,16 @@ describe('class Daemon', () => {
 
     expect(result).toBe(1);
   })
+
+  test('Test creation with incorrect level', () => {
+    const result = new Daemon(3);
+  
+    expect(result).toEqual({
+      attack: 23,
+      defence: 23,
+      health: 100,
+      level: 3,
+      type: 'daemon',
+    })
+  });  
 });

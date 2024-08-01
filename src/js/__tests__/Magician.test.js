@@ -37,4 +37,16 @@ describe('class Magician', () => {
 	
 		expect(result).toBe(1);
 	  })
+
+	  test('Test creation with incorrect level', () => {
+		const result = new Magician(3);
+	  
+		expect(result).toEqual({
+		  attack: 23,
+		  defence: 93,
+		  health: 100,
+		  level: 3,
+		  type: 'magician',
+		})
+	  });  
   });

@@ -29,4 +29,14 @@ export default class Character {
   get briefInformation() {
     return `\u{1F396}${this.level} \u{2694}${this.attack} \u{1F6E1}${this.defence} \u{2764}${this.health}`;
   }
+  
+  levelUp() {
+    const { health } = this;
+  
+    this.attack = Math.floor(Math.max(this.attack, this.attack * ((80 + health) / 100)));
+    this.defence = Math.floor(Math.max(this.defence, this.defence * ((80 + health) / 100)));
+    this.health = Math.floor(Math.min(health + 80, 100));
+  
+    this.level = Math.min(this.level + 1, 4);
+  }
 }
