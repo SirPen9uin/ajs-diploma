@@ -1,39 +1,39 @@
-import Bowman from '../characters/Bowman';
-import Daemon from '../characters/Daemon';
-import Magician from '../characters/Magician';
-import Swordsman from '../characters/Swordsman';
-import Undead from '../characters/Undead';
-import Vampire from '../characters/Vampire';
+import {
+  Bowman, Daemon, Magician, Swordsman, Undead, Vampire
+} from '../characters/characters';
 import { characterGenerator, generateTeam } from '../generators';
 import '../testMethods/toBeInstanceOfArray';
 
 const allowedTypes = [Bowman, Daemon, Magician, Swordsman, Undead, Vampire];
 
-describe('characterGenerator', () => {
-  test('should generate characters indefinitely from allowedTypes', () => {
-    const generator = characterGenerator(allowedTypes, 4);
+describe('module generators', () => {
+  describe('characterGenerator(allowedTypes, 4)', () => {
+    test('100 ~ Infinity', () => {
+      const characterCount = 100;
+      const characters = [];
+      const generator = characterGenerator(allowedTypes, 4);
 
-    for (let i = 0; i < 100; i += 1) { // проверяем первые 100 персонажей
-      const result = generator.next();
+      for (let i = 0; i < characterCount; i += 1) {
+        const character = generator.next();
 
-      expect(result.done).toBeFalsy();
-      expect(result.value).toBeInstanceOfArray(allowedTypes);
-    }
+        expect(character.done).toBeFalsy();
+        expect(character.value).toBeInstanceOfArray(allowedTypes);
+
+        characters.push(character);
+      }
+
+      expect(characters).toHaveLength(characterCount);
+    });
   });
-});
-
-describe('generateTeam', () => {
   test.each([
-    [2, 5],
-    [3, 8],
-    [4, 2],
-  ])('should create characters in the right number and range of levels (maxLevel: %i, characterCount: %i)', (maxLevel, characterCount) => {
+    { maxLevel: 2, characterCount: 5 },
+    { maxLevel: 3, characterCount: 8 },
+    { maxLevel: 4, characterCount: 2 },
+  ])('generateTeam(allowedTypes, $maxLevel, $characterCount)', ({ maxLevel, characterCount }) => {
     const team = generateTeam(allowedTypes, maxLevel, characterCount);
 
     expect(team.characters).toHaveLength(characterCount);
 
-    team.characters.forEach((character) => {
-      expect(character.level).toBeLessThanOrEqual(maxLevel);
-    });
+    team.characters.forEach((character) => expect(character.level).toBeLessThanOrEqual(maxLevel));
   });
 });

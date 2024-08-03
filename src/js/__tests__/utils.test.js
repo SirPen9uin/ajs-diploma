@@ -1,33 +1,32 @@
-import { calcTileType, calcHealthLevel } from '../utils';
-describe('func calcTileType', () => {
-	test.each([
-		[0, 8, 'top-left'],
-		[1, 8, 'top'],
-		[4, 5, 'top-right'],
-		[7, 7, 'left'],
-		[12, 4, 'bottom-left'],
-		[17, 6, 'right'],
-		[40, 9, 'center'], 
-		[63, 8, 'bottom-right'],
-		[75, 9, 'bottom'],
-	])('Test the calcTileType func with attributes %i and %i', (index, boardSize, expected) => {
-		const result = calcTileType(index, boardSize);
+import { calcHealthLevel, calcTileType, randomInt } from '../utils';
 
-		expect(result).toBe(expected);
-	});
-});
+describe('module utils', () => {
+  test.each([
+    { health: 100, expected: 'high' },
+    { health: 50, expected: 'high' },
+    { health: 49, expected: 'normal' },
+    { health: 15, expected: 'normal' },
+    { health: 14, expected: 'critical' },
+    { health: 0, expected: 'critical' },
+  ])('calcHealthLevel($health)', ({ health, expected }) => expect(calcHealthLevel(health)).toBe(expected));
+  test.each([
+    { index: 0, boardSize: 8, expected: 'top-left' },
+    { index: 1, boardSize: 8, expected: 'top' },
+    { index: 4, boardSize: 5, expected: 'top-right' },
+    { index: 7, boardSize: 7, expected: 'left' },
+    { index: 12, boardSize: 4, expected: 'bottom-left' },
+    { index: 17, boardSize: 6, expected: 'right' },
+    { index: 40, boardSize: 9, expected: 'center' },
+    { index: 63, boardSize: 8, expected: 'bottom-right' },
+    { index: 75, boardSize: 9, expected: 'bottom' },
+  ])('calcTileType($index, $boardSize)', ({ index, boardSize, expected }) => {
+    expect(calcTileType(index, boardSize)).toBe(expected);
+  });
+  test('randomInt(3)', () => {
+    const range = 3;
+    const number = randomInt(range);
 
-describe('calcHealthLevel', () => {
-	test.each([
-		[100, 'high'],
-		[50, 'high'],
-		[49, 'normal'],
-		[15, 'normal'],
-		[14, 'critical'],
-		[0, 'critical'],
-	])('test working with attribute %i', (health, expected) => {
-		const result = calcHealthLevel(health);
-
-		expect(result).toBe(expected);
-	});
+    expect(number).toBeGreaterThanOrEqual(0);
+    expect(number).toBeLessThan(range);
+  });
 });

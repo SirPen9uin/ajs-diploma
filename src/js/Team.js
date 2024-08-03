@@ -1,8 +1,8 @@
 /**
- * Класс, представляющий персонажей команды
+ * Класс для команды (набор персонажей), представляющих компьютер и игрока
  *
- * @todo Самостоятельно продумайте хранение персонажей в классе
- * Например
+ * @property characters - массив персонажей
+ *
  * @example
  * ```js
  * const characters = [new Swordsman(2), new Bowman(1)]
@@ -12,8 +12,17 @@
  * ```
  * */
 export default class Team {
-  // TODO: write your logic here
-  constructor(characters) {
-    this.characters = characters;
-  }
+  /**
+   * Конструктор класса Team
+   *
+   * @param characters - массив персонажей
+   */
+  constructor(characters = []) { this.characters = characters; }
+
+  /**
+   * Добавление персонажа
+   *
+   * @param character - персонаж
+   */
+  addCharacter(character) { this.characters.push(character); }
 }

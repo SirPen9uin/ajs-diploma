@@ -2,51 +2,26 @@ import Daemon from '../characters/Daemon';
 import Character from '../Character';
 
 describe('class Daemon', () => {
-  test('Testing instance of', () => {
-    const result = new Daemon(1);
-    expect(result).toBeInstanceOf(Character);
-    expect(result).toBeInstanceOf(Daemon);
-  });
+  test('new Daemon(1)', () => expect(new Daemon(1)).toEqual({
+    attack: 10, defence: 10, health: 50, level: 1, type: 'daemon',
+  }));
+  test('new Daemon(3)', () => expect(new Daemon(3)).toEqual({
+    attack: 23, defence: 23, health: 100, level: 3, type: 'daemon',
+  }));
+  describe('[Daemon]', () => {
+    let character;
 
-  test('Testing creation', () => {
-    const result = new Daemon(1);
+    beforeAll(() => { character = new Daemon(1); });
+    afterAll(() => { character = undefined; });
 
-    expect(result).toEqual({
-      attack: 10, defence: 10, health: 50, level: 1, type: 'daemon',
+    test('instance of Character and Daemon', () => {
+      expect(character).toBeInstanceOf(Character);
+      expect(character).toBeInstanceOf(Daemon);
     });
+    test('.attackRange', () => expect(character.attackRange).toBe(4));
+    test('.briefInformation', () => {
+      expect(character.briefInformation).toBe(`\u{1F396}${character.level} \u{2694}${character.attack} \u{1F6E1}${character.defence} \u{2764}${character.health}`);
+    });
+    test('.moveRange', () => expect(character.moveRange).toBe(1));
   });
-
-  test('Test getting brief information', () => {
-    const character = new Daemon(1);
-
-    const result = character.briefInformation;
-
-    expect(result).toBe(`\u{1F396}${character.level} \u{2694}${character.attack} \u{1F6E1}${character.defence} \u{2764}${character.health}`);
-  });
-
-  test('testing getting attack range', () => {
-    const character = new Daemon(1);
-    const result = character.attackRange;
-
-    expect(result).toBe(4);
-  })
-
-  test('testing getting move range', () => {
-    const character = new Daemon(1);
-    const result = character.moveRange;
-
-    expect(result).toBe(1);
-  })
-
-  test('Test creation with incorrect level', () => {
-    const result = new Daemon(3);
-  
-    expect(result).toEqual({
-      attack: 23,
-      defence: 23,
-      health: 100,
-      level: 3,
-      type: 'daemon',
-    })
-  });  
 });
