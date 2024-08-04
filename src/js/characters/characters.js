@@ -6,10 +6,10 @@ import Undead from './Undead';
 import Vampire from './Vampire';
 
 export {
-    Bowman,
-    Daemon,
-    Magician,
-    Swordsman,
-    Undead,
-    Vampire,
+  Bowman,
+  Daemon,
+  Magician,
+  Swordsman,
+  Undead,
+  Vampire,
 };

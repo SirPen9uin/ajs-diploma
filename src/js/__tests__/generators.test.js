@@ -1,5 +1,5 @@
 import {
-  Bowman, Daemon, Magician, Swordsman, Undead, Vampire
+  Bowman, Daemon, Magician, Swordsman, Undead, Vampire,
 } from '../characters/characters';
 import { characterGenerator, generateTeam } from '../generators';
 import '../testMethods/toBeInstanceOfArray';

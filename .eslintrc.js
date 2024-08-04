@@ -1,7 +1,6 @@
 module.exports = {
   env: {
     browser: true,
-    // es2021: true,
     es6: true,
     jest: true,
   },
@@ -26,5 +25,6 @@ module.exports = {
     'linebreak-style': ['error', 'windows'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
+    'no-tabs': 'error',
   },
 };

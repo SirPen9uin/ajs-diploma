@@ -30,32 +30,32 @@ export function calcTileType(index, boardSize) {
   const rightColumn = index % boardSize === boardSize - 1;
 
   switch (true) {
-  case topRow && leftColumn:
-    return 'top-left';
+    case topRow && leftColumn:
+      return 'top-left';
 
-  case topRow && rightColumn:
-    return 'top-right';
+    case topRow && rightColumn:
+      return 'top-right';
 
-  case bottomRow && leftColumn:
-    return 'bottom-left';
+    case bottomRow && leftColumn:
+      return 'bottom-left';
 
-  case bottomRow && rightColumn:
-    return 'bottom-right';
+    case bottomRow && rightColumn:
+      return 'bottom-right';
 
-  case topRow && !(leftColumn || rightColumn):
-    return 'top';
+    case topRow && !(leftColumn || rightColumn):
+      return 'top';
 
-  case bottomRow && !(leftColumn || rightColumn):
-    return 'bottom';
+    case bottomRow && !(leftColumn || rightColumn):
+      return 'bottom';
 
-  case !(topRow || bottomRow) && rightColumn:
-    return 'right';
+    case !(topRow || bottomRow) && rightColumn:
+      return 'right';
 
-  case !(topRow || bottomRow) && leftColumn:
-    return 'left';
+    case !(topRow || bottomRow) && leftColumn:
+      return 'left';
 
-  default:
-    return 'center'; 
+    default:
+      return 'center';
   }
 }
 
