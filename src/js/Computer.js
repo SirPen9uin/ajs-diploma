@@ -25,9 +25,10 @@ export default class Computer {
   
             if (playerHero.character.health - damage <= 0) {
               killOptions.push([enemyHero, playerHero]);
-            } 
+            }
+  
             const distance = enemyHero.distanceCalculation(playerHero.position, this.boardSize);
-
+  
             if ((damage > maxDamage) || (damage === maxDamage && distance < minDistance)) {
               maxDamage = damage;
               minDistance = distance;
@@ -39,17 +40,17 @@ export default class Computer {
       });
   
       if (killOptions.length) {
+        minDistance = Infinity;
         targetEnemyHero = null;
         targetPlayerHero = null;
-        minDistance = Infinity;
   
         killOptions.forEach(([enemyHero, playerHero]) => {
           const distance = enemyHero.distanceCalculation(playerHero.position, this.boardSize);
   
           if (distance < minDistance) {
-            targetPlayerHero = enemyHero;
-            targetEnemyHero = enemyHero;
             minDistance = distance;
+            targetEnemyHero = enemyHero;
+            targetPlayerHero = playerHero;
           }
         });
       }
@@ -75,11 +76,14 @@ export default class Computer {
       let targetPlanMoveCell = null;
   
       positionedEnemyTeam.forEach((enemyHero) => {
+        const moveableCells = enemyHero.generateMoveableCells(positionedCharacters, this.boardSize);
+  
         positionedPlayerTeam.forEach((playerHero) => {
           const distanceBeforeMoving = enemyHero.distanceCalculation(
             playerHero.position,
             this.boardSize,
           );
+  
           let distanceAfterMoving = Infinity;
           let planMoveCell = null;
   
